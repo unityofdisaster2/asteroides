@@ -1,8 +1,15 @@
-ex_animacion: gfx.o animacion.o Punto.o
-	g++ gfx.o Punto.o animacion.o -o ex_animacion -lX11 
+ex_animacion: animacion.o gfx.o Asteroide.o Coordenada.o
+	g++ -g animacion.o gfx.o Asteroide.o Coordenada.o -o ex_animacion -lX11
 animacion.o: animacion.cpp
-	g++ animacion.cpp -c
-Punto.o: Punto.cpp Punto.h
-	g++ Punto.cpp -c
-gfx.o: gfx.c gfx.h
-	gcc gfx.c -c 
+	g++ -g animacion.cpp -c
+
+
+Asteroide.o: Asteroide.h Asteroide.cpp  gfx.o Coordenada.o
+	g++ -g Asteroide.cpp -c
+
+Coordenada.o: Coordenada.h Coordenada.cpp
+	g++ -g Coordenada.cpp -c
+
+
+gfx.o: gfx.h gfx.c
+	gcc -g gfx.c -c

@@ -1,64 +1,42 @@
 #include "gfx.h"
-#include "Punto.h"
 #include <unistd.h>
 #include <math.h>
+#include <stdio.h>
+#include "Asteroide.h"
 #include <vector>
-#include <stdlib.h>
 #include <random>
+#define PI 3.14159265359
+
 
 using namespace std;
-
-float random_flotante(float max, float min){
-    float valor = rand() / (float) RAND_MAX; 
-    return min + valor * ( max - min );    
-}
-
 int main()
 {
     int t;
-    char c;
-    int max=20, min = 8;
-    srand(time(NULL));
+    Asteroide a = Asteroide(6);
+    Asteroide b = Asteroide(8);
+    vector<Asteroide> asteroides(40);
+    gfx_open(800, 600, "Ejemplo Micro Animacion GFX");
+    gfx_color(0, 200, 100);
 
-
-    gfx_open(800,600,"Ejemplo micro Animacion GFX");
-    gfx_color(0,200,100);
-    vector<Punto> puntos((rand()%(max-min+1)) + min);
-    double x,y;
-    for(int i = 0; i < puntos.capacity(); i++)
-    {
-        if(i > 0 && i < puntos.capacity()/2){
-            while(x < puntos[i-1].getX()){
-                x = random_flotante(100,0);
-            }
-        }else if(i > puntos.capacity()/2){
-            while(x > puntos[i-1].getX()){
-                x = random_flotante(100,0);
-            }
-        }else{
-            x = random_flotante(100,0);
-        }
-        y = random_flotante(100,0);
-        puntos[i].inicializaPunto(x,y);
+    for(int i = 0; i < asteroides.capacity(); i++){
+        asteroides[i].setNumPuntos(rand()%(20 - 8 +1) + 8);
+        asteroides[i].setPosicionInicial(rand()%800,rand()%600);
+        asteroides[i].inicializar(rand()%50);
     }
-    printf("capacidad: %ld\n",puntos.capacity());
-    for(int j = 0; j < puntos.capacity(); j++){
-        if(j == puntos.capacity() - 1){
-            gfx_line(puntos[j].getX(),puntos[j].getY(),puntos[0].getX(),puntos[0].getY());
+    // a.setPosicionInicial(400,600);
+    // a.inicializar(50);
+    // b.setPosicionInicial(200,300);
+    // b.inicializar(5);
+    double rot = 0.1;
+    for(int t = 0; t < 200; t++){
+        gfx_clear();
+        for(int i = 0; i < asteroides.capacity(); i++){
+            asteroides[i].dibujar(t,rot);
         }
-        else{
-            gfx_line(puntos[j].getX(),puntos[j].getY(),puntos[j+1].getX(),puntos[j+1].getY());
-        }
+        rot+=0.05;
+        gfx_flush();
+        usleep(31600);
+
     }
-
-
-	while(1) {
-		// Wait for the user to press a character.
-		c = gfx_wait();
-
-		// Quit if it is the letter q.
-		if(c=='q') break;
-	}
     return 0;
-
 }
