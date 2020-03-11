@@ -125,9 +125,6 @@ void Asteroide::inicializar(int size)
     //el numero de raices a calcular se dara basado en el numero de puntos que se hayan establecido
     int raiz = nPuntos;
 
-
-
-    vector<tuple<double,double>> tuplas(raiz);
     
 
     // se calcula magnitud y argumento del numero complejo al que se sacara raiz
@@ -141,13 +138,7 @@ void Asteroide::inicializar(int size)
     
     for(int i = 0; i < raiz; i++){
         // para encontrar (x,y) se utiliza la formula de Moivre z^(1/n) = r^(1/n)*(cos((arg+2*pi*k)/n)+ i*sin((arg+2*pi*k)/n) 
-        tuplas[i] = make_tuple(magnitud*cos((argumento+2*PI*i)/raiz),magnitud*sin((argumento+2*PI*i)/raiz));
-    }
-
-    for(int i = 0; i < puntos.capacity(); i++)
-    {
-        // se extraen los valores de la tupla y se multiplican por size para aumentar su tamano
-        puntos[i].inicializaCoordenada(get<0>(tuplas[i])*size,get<1>(tuplas[i])*size);
+        puntos[i].inicializaCoordenada(size*magnitud*cos((argumento+2*PI*i)/raiz),size*magnitud*sin((argumento+2*PI*i)/raiz));
     }
 
 }
