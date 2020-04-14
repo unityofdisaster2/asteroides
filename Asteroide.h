@@ -7,11 +7,14 @@ class Asteroide{
         std::vector<Coordenada> puntos;
         int nPuntos;
         Coordenada posicionInicial;
+        int size;
+        int direccion[4];
     public:
         Asteroide();
-        Asteroide(int);
+        Asteroide(int,int);
         void setNumPuntos(int);
-        void inicializar(int );
+        void inicializar();
+        void setSize(int);
         void setPosicionInicial(double,double);
         double rotar_x(int,double);
         double rotar_y(int,double);

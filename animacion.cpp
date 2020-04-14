@@ -9,31 +9,38 @@
 
 
 using namespace std;
-int main()
+int main(int argc, char **argv)
 {
+    if(argc < 2){
+        printf("debe ingresar una cantidad de asteroides: \n%s n_asteroides\n",argv[0]);
+        exit(0);
+    }
+    srand(time(NULL));
     int t;
-    Asteroide a = Asteroide(6);
-    Asteroide b = Asteroide(8);
-    vector<Asteroide> asteroides(40);
+    vector<Asteroide> asteroides(atoi(argv[1]));
     gfx_open(800, 600, "Ejemplo Micro Animacion GFX");
     gfx_color(0, 200, 100);
-
+    int limites_x [] ={ -100,900 };
+    int limites_y [] = {-100, 700};
     for(int i = 0; i < asteroides.capacity(); i++){
-        asteroides[i].setNumPuntos(rand()%(20 - 8 +1) + 8);
-        asteroides[i].setPosicionInicial(rand()%800,rand()%600);
-        asteroides[i].inicializar(rand()%50);
+        asteroides[i].setNumPuntos(rand()%(13 - 8 +1) + 8);
+        //asteroides[i].setNumPuntos(8);
+        if(rand() % 2 == 0){
+            asteroides[i].setPosicionInicial(limites_x[rand()%2],rand()%600);
+        }else{
+            asteroides[i].setPosicionInicial(rand()%800,limites_y[rand()%2]);
+        }
+        //asteroides[i].setPosicionInicial(rand()%800,rand()%600);
+        asteroides[i].setSize(rand()%(50-1 +1) +1);
+        asteroides[i].inicializar();
     }
-    // a.setPosicionInicial(400,600);
-    // a.inicializar(50);
-    // b.setPosicionInicial(200,300);
-    // b.inicializar(5);
     double rot = 0.1;
-    for(int t = 0; t < 200; t++){
+    for(t = 0; t < 10000; t++){
         gfx_clear();
         for(int i = 0; i < asteroides.capacity(); i++){
             asteroides[i].dibujar(t,rot);
         }
-        rot+=0.05;
+        rot+=0.01;
         gfx_flush();
         usleep(31600);
 
