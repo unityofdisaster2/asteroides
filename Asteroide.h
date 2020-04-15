@@ -15,10 +15,11 @@ class Asteroide{
         void setNumPuntos(int);
         void inicializar();
         void setSize(int);
-        void setPosicionInicial(double,double);
+        void setPosicionInicial();
+        bool checarLimites(double, double);
         double rotar_x(int,double);
         double rotar_y(int,double);
-        void dibujar(int,double);
+        bool dibujar(int,double);
 };
 
 #endif
