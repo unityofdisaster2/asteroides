@@ -1,15 +1,30 @@
 #ifndef COORDENADA_H_
 #define COORDENADA_H_
-
+#include <math.h>
 class Coordenada{
     private:
-        double x,y;
+        double xInicial,xDesplazada,yInicial,yDesplazada;
     public:
         Coordenada();
         Coordenada(double,double);
-        double getX();
-        double getY();
+        double getXInicial();
+        double getYInicial();
+        double getXDesplazada();
+        double getYDesplazada();
+
+        void setXInicial(double);
+        void setYInicial(double);
+        
+        void setXDesplazada(double);
+        void setYDesplazada(double);
+
         void inicializaCoordenada(double,double);
+
+
+
+        void desplazar(double,double, double);
+
+
 };
 
 #endif

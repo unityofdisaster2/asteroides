@@ -2,13 +2,16 @@
 #define ASTEROIDE_H_
 #include <vector>
 #include "Coordenada.h"
+using namespace std;
 class Asteroide{
     private:
-        std::vector<Coordenada> puntos;
+        vector<Coordenada> puntos;
         int nPuntos;
         Coordenada posicionInicial;
         int size;
         int direccion[4];
+        int t;
+        double rotacion;
     public:
         Asteroide();
         Asteroide(int,int);
@@ -16,10 +19,12 @@ class Asteroide{
         void inicializar();
         void setSize(int);
         void setPosicionInicial();
+        
+        vector<Coordenada> getPuntos();
         bool checarLimites(double, double);
         double rotar_x(int,double);
         double rotar_y(int,double);
-        bool dibujar(int,double);
+        bool mover();
 };
 
 #endif
